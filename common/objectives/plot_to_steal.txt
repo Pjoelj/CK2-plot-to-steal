@@ -25,6 +25,7 @@ plot_steal_item = {
 				NOT = { artifact_type_owned_by = FROM } # This should be right
 			}
 		}
+		is_within_diplo_range = yes
 	}
 	
 	chance = {

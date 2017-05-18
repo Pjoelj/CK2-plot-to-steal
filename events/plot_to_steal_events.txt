@@ -12,62 +12,7 @@ character_event = {
 	}
 	
 	mean_time_to_happen = {
-		#months = 600 # Let's not make it too easy...
 		days = 1
-		
-		# modifier = {
-			# # It gets much harder without someone on the inside
-			# factor = 10
-			# OR = {
-				# any_plot_backer = {
-					# at_location = plot_target_char
-				# }
-				# plot_target_char = { at_location = ROOT }
-			# }
-		# }
-		
-		# modifier = {
-			# # Someone the target trusts is in on the plot (spouse, child, friend, spymaster, lover or steward)
-			# factor = 0.7
-			
-			# OR = {
-				# plot_target ={
-					# OR = {
-						# job_spymaster = { character = ROOT }
-						# job_treasurer = { character = ROOT }
-						# is_friend = ROOT
-						# ROOT = { is_child_of = PREV }
-						# is_main_spouse = ROOT
-					# }
-				# }
-			
-				# any_plot_backer = {
-					# plot_target = {
-						# job_spymaster = { character = PREV }
-						# job_spymaster = { character = PREV }
-						# job_treasurer = { character = PREV }
-						# is_friend = PREV
-						# PREV = { is_child_of = PREV } # I think this is right...
-						# is_main_spouse = PREV
-					# }
-				# }
-			# }
-		# }
-		
-		# # The target's regent is in on the plot - that helps a lot.
-		# modifier = {
-			# factor = 0.1
-			# OR = {
-				# any_plot_backer = {
-					# plot_target = {
-						# regent = {
-							# character = PREVPREV
-						# }
-					# }
-				# }
-				# plot_target = { regent = ROOT }
-			# }
-		# }
 	}
 	
 	option = {
@@ -81,7 +26,7 @@ character_event = {
 						OR = {
 							quality = 3
 							NOT = { artifact_type_owned_by = ROOT }
-							indestructible = yes
+							#indestructible = yes
 						}
 					}
 					if = {
@@ -98,7 +43,7 @@ character_event = {
 					if = {
 						limit = {
 							OR = {
-								NOT = { artifact_type_owned_by = FROM }
+								NOT = { artifact_type_owned_by = ROOT }
 								#indestructible = yes
 							}
 						}
@@ -109,7 +54,7 @@ character_event = {
 						}
 						log = "Item was stolen. [This.GetName] :: [Root.GetBestName]"
 						ROOT = {
-							set_character_flag = successful theft
+							set_character_flag = successful_theft
 						}
 					}
 				}
