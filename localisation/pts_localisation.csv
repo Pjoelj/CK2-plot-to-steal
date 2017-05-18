@@ -1,0 +1,7 @@
+#CODE;ENGLISH;FRENCH;GERMAN;;SPANISH;;;;;;;;;x
+plot_steal_item_title;Steal an artifact from [This.GetBestName];;;;;;;;;;;;;x
+plot_steal_item_desc;Liberate a valuable item from the treasury of from [This.GetBestName];;;;;;;;;;;;;x
+plot_steal_item_short;Steal Artifact;;;;;;;;;;;;;x
+EVTDESC_PTS_1;An opportunity has presented itself to steal an artifact from your target. Will you take it?;;;;;;;;;;;;;x
+EVTOPT_PTS_1_A;Yes;;;;;;;;;;;;;x
+EVTOPT_PTS_1_B;No;;;;;;;;;;;;;x

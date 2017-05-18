@@ -1,0 +1,124 @@
+namespace = PTS
+# The plotter finds an opportunity...
+character_event = {
+	id = PTS.1
+	desc = EVTDESC_PTS_1
+	picture = GFX_evt_spymaster
+	
+	is_part_of_plot = yes
+	
+	trigger = {
+		has_plot = plot_steal_item
+	}
+	
+	mean_time_to_happen = {
+		#months = 600 # Let's not make it too easy...
+		days = 1
+		
+		# modifier = {
+			# # It gets much harder without someone on the inside
+			# factor = 10
+			# OR = {
+				# any_plot_backer = {
+					# at_location = plot_target_char
+				# }
+				# plot_target_char = { at_location = ROOT }
+			# }
+		# }
+		
+		# modifier = {
+			# # Someone the target trusts is in on the plot (spouse, child, friend, spymaster, lover or steward)
+			# factor = 0.7
+			
+			# OR = {
+				# plot_target ={
+					# OR = {
+						# job_spymaster = { character = ROOT }
+						# job_treasurer = { character = ROOT }
+						# is_friend = ROOT
+						# ROOT = { is_child_of = PREV }
+						# is_main_spouse = ROOT
+					# }
+				# }
+			
+				# any_plot_backer = {
+					# plot_target = {
+						# job_spymaster = { character = PREV }
+						# job_spymaster = { character = PREV }
+						# job_treasurer = { character = PREV }
+						# is_friend = PREV
+						# PREV = { is_child_of = PREV } # I think this is right...
+						# is_main_spouse = PREV
+					# }
+				# }
+			# }
+		# }
+		
+		# # The target's regent is in on the plot - that helps a lot.
+		# modifier = {
+			# factor = 0.1
+			# OR = {
+				# any_plot_backer = {
+					# plot_target = {
+						# regent = {
+							# character = PREVPREV
+						# }
+					# }
+				# }
+				# plot_target = { regent = ROOT }
+			# }
+		# }
+	}
+	
+	option = {
+		# Go for it!
+		name = EVTOPT_PTS_1_A
+		
+			# Instantly steal something, just to see if it works.
+			plot_target_char = {
+				random_artifact = {
+					limit = {
+						OR = {
+							quality = 3
+							NOT = { artifact_type_owned_by = ROOT }
+							indestructible = yes
+						}
+					}
+					if = {
+						limit = {
+							OR = {
+								artifact_type_owned_by = ROOT
+								#indestructible = no
+							}
+						}
+						destroy_artifact = yes
+						# FROM = { character_event = PTS.2 } # Stole a duplicate
+						log = "[Prev.GetBestName] lost an artifact to [Root.GetBestName], but it was destroyed as a duplicate"
+					}
+					if = {
+						limit = {
+							OR = {
+								NOT = { artifact_type_owned_by = FROM }
+								#indestructible = yes
+							}
+						}
+						log = "Previous owner of artifact was [Prev.GetBestName], new owner will be [Root.GetBestName]"
+						transfer_artifact = {
+							from = PREV
+							to = ROOT
+						}
+						log = "Item was stolen. [This.GetName] :: [Root.GetBestName]"
+						ROOT = {
+							set_character_flag = successful theft
+						}
+					}
+				}
+			}
+	}
+	
+	option = {
+		# Nah
+		name = EVTOPT_PTS_1_B
+		piety = 10
+	}
+}

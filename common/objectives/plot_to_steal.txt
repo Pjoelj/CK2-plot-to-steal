@@ -1,0 +1,63 @@
+plot_steal_item = {
+	type = realm_characters_plus
+	intrigue_plot = yes
+	
+	potential = {
+		prisoner = no
+		age = 16
+		NOT = {trait = incapable}
+		OR = {
+			ai = no
+			NOT = {
+				trait = honest
+				trait = just
+			}
+		}
+	}
+	
+	target_potential = { num_of_artifacts = 1 }
+	
+	allow = {
+		FROM = { ai = no }
+		any_artifact = {
+			OR = {
+				quality = 3
+				NOT = { artifact_type_owned_by = FROM } # This should be right
+			}
+		}
+	}
+	
+	chance = {
+		factor = 2
+		
+		modifier = {
+			factor = 2
+			FROM = { trait = deceitful }
+		}
+		
+		modifier = {
+			factor = 2
+			FROM = { trait = greedy }
+		}
+		
+		modifier = {
+			factor = 3
+			is_rival = FROM
+		}
+	}
+	
+	success = {
+		has_character_flag = successful_theft
+	}
+	
+	effect = {
+		clr_character_flag = successful_theft
+	}
+	
+	abort = {
+		is_alive = no
+		NOT = {
+			num_of_artifacts = 1
+		}
+	}
+}
